@@ -16,7 +16,7 @@ It is intentionally gitignored inside this repo. The point is to experiment safe
   - reusable macOS SwiftUI containers, AppKit bridges, and UI primitives
 - `Sources/HypercartMacOSDashboardDemo`
   - a portability test app that ports real Cork screen shapes onto the extracted shell
-- `EXTRACTION_NOTES.md`
+- `ARCHITECTURE.md`
   - a running map of which Cork patterns moved cleanly and which still belong to app-specific code
 
 ## What this does not try to extract

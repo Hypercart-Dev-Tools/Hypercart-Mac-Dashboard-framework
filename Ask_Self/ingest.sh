@@ -35,7 +35,7 @@ export OMP_NUM_THREADS=${OMP_NUM_THREADS:-1}
 export MKL_NUM_THREADS=${MKL_NUM_THREADS:-1}
 
 if [ "$HAS_CONCURRENCY_FLAG" -eq 1 ]; then
-  exec "$PYTHON_BIN" "$ENTRYPOINT" --harness-config "$HARNESS" --no-prs --no-architecture-md "$@"
+  exec "$PYTHON_BIN" "$ENTRYPOINT" --harness-config "$HARNESS" --no-prs "$@"
 else
-  exec "$PYTHON_BIN" "$ENTRYPOINT" --harness-config "$HARNESS" --no-prs --no-architecture-md --concurrency "$SAFE_CONCURRENCY" "$@"
+  exec "$PYTHON_BIN" "$ENTRYPOINT" --harness-config "$HARNESS" --no-prs --concurrency "$SAFE_CONCURRENCY" "$@"
 fi

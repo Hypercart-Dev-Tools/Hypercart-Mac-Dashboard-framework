@@ -15,6 +15,14 @@
     "requests_per_minute": 0,
     "tokens_per_minute": 0
   },
+  "synthesis": {
+    "provider": "ollama",
+    "model": "qwen3:8b",
+    "endpoint": "http://localhost:11434",
+    "temperature": 0.3,
+    "max_output_tokens": 1500,
+    "timeout_seconds": 180
+  },
   "shared_index": {
     "enabled": false,
     "path": "Ask_Self/index/hypercart-macos-dashboard-shared.sqlite",
@@ -34,7 +42,7 @@
       ".json"
     ],
     "include_patterns": [
-      "^(?:README|EXTRACTION_NOTES)\\.md$",
+      "^(?:README|ARCHITECTURE)\\.md$",
       "^Ask_Self/.+\\.(?:md|json)$"
     ],
     "exclude_patterns": [
@@ -77,7 +85,7 @@
       "chunker": "text"
     },
     {
-      "pattern": "^(?:README|EXTRACTION_NOTES)\\.md$",
+      "pattern": "^(?:README|ARCHITECTURE)\\.md$",
       "source": "policy",
       "priority": 4,
       "chunker": "text"

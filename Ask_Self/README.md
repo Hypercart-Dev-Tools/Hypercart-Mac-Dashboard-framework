@@ -27,9 +27,10 @@ For this project, the index intentionally lives inside `Ask_Self/index/` rather 
 
 ## Notes
 
-- Retrieval embeddings are configured to use `Qwen/Qwen3-Embedding-0.6B`.
-- Full `ask-self query` synthesis still depends on Gemini credentials in the current upstream tool.
+- Retrieval embeddings are configured to use `Qwen/Qwen3-Embedding-0.6B` (1024 dims).
+- Synthesis is configured to use a local Ollama model (`qwen3:8b`) via `http://localhost:11434`. Start the daemon with `ollama serve` and pull the model with `ollama pull qwen3:8b` if you don't have it.
 - The index in `index/` reflects the last ingest, not current unindexed edits.
+- `ARCHITECTURE.md` is the primary repo-local architecture note indexed for onboarding and repo-grounded answers.
 - Local Qwen ingest is most reliable in safe mode for this project:
   - `TOKENIZERS_PARALLELISM=false`
   - `OMP_NUM_THREADS=1`
@@ -56,6 +57,23 @@ If you want to experiment with a less conservative setup, you can override the w
 ```sh
 ASK_SELF_CONCURRENCY=2 ./Ask_Self/ingest.sh --mode all
 ```
+
+## Querying
+
+Three query paths are available against this index:
+
+```sh
+# Fully local: Qwen retrieval + Ollama synthesis (no remote API).
+./Ask_Self/query.sh --local-only "What public layers does this package expose?"
+
+# Retrieval only: returns the matching chunks without an answer pass.
+./Ask_Self/query.sh --retrieval-only --json "..."
+
+# Default (matches the harness): Qwen retrieval + Ollama synthesis.
+./Ask_Self/query.sh "..."
+```
+
+`--local-only` is a sanity gate: it refuses to run if either retrieval or synthesis would touch a remote API given the current harness config. To switch back to Gemini synthesis, edit `synthesis.provider` in `ask_self_harness.json`.
 
 ## Attribution
 
