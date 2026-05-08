@@ -1,0 +1,97 @@
+{
+  "repo_label": "Hypercart MacOS Dashboard",
+  "repo_kind": "swift-package",
+  "repo_slug": "hypercart-macos-dashboard",
+  "repo_root": "..",
+  "db_path": "Ask_Self/index/hypercart-macos-dashboard.sqlite",
+  "system_instructions_path": "Ask_Self/ask_self_system_instructions.json",
+  "env_file_path": "Ask_Self/ask-self-rag.env",
+  "ingest_command": "./Ask_Self/ingest.sh --mode all",
+  "tenancy_env_var": "HYPERCART_MACOS_DASHBOARD_ASK_SELF_TEAM_ID",
+  "embedding": {
+    "provider": "qwen-local",
+    "model": "Qwen/Qwen3-Embedding-0.6B",
+    "dim": 1024,
+    "requests_per_minute": 0,
+    "tokens_per_minute": 0
+  },
+  "shared_index": {
+    "enabled": false,
+    "path": "Ask_Self/index/hypercart-macos-dashboard-shared.sqlite",
+    "prefer_for_query": false
+  },
+  "github": {
+    "owner": "buresdv",
+    "repo": "Cork",
+    "default_fetch_limit": 0,
+    "token_env_vars": [
+      "GITHUB_TOKEN"
+    ]
+  },
+  "docs": {
+    "extensions": [
+      ".md",
+      ".json"
+    ],
+    "include_patterns": [
+      "^(?:README|EXTRACTION_NOTES)\\.md$",
+      "^Ask_Self/.+\\.(?:md|json)$"
+    ],
+    "exclude_patterns": [
+      "^\\.build/",
+      "^Ask_Self/index/",
+      "^\\.git/"
+    ]
+  },
+  "source": {
+    "extensions": [
+      ".swift"
+    ],
+    "include_patterns": [
+      "^Package\\.swift$",
+      "^Sources/.+\\.swift$",
+      "^Tests/.+\\.swift$"
+    ],
+    "exclude_patterns": [
+      "^\\.build/",
+      "^\\.git/"
+    ]
+  },
+  "classification_rules": [
+    {
+      "pattern": "^Package\\.swift$",
+      "source": "build",
+      "priority": 5,
+      "chunker": "text"
+    },
+    {
+      "pattern": "^Tests/.+\\.swift$",
+      "source": "test",
+      "priority": 2,
+      "chunker": "text"
+    },
+    {
+      "pattern": "^Sources/.+\\.swift$",
+      "source": "module",
+      "priority": 4,
+      "chunker": "text"
+    },
+    {
+      "pattern": "^(?:README|EXTRACTION_NOTES)\\.md$",
+      "source": "policy",
+      "priority": 4,
+      "chunker": "text"
+    },
+    {
+      "pattern": "^Ask_Self/.+\\.(?:md|json)$",
+      "source": "config",
+      "priority": 3,
+      "chunker": "text"
+    }
+  ],
+  "default_classification": {
+    "source": "doc",
+    "priority": 1,
+    "chunker": "text"
+  }
+}
