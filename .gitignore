@@ -1,1 +1,5 @@
 .build/
+Ask_Self/.DS_Store
+.DS_Store
+.swiftpm/
+.vscode/
